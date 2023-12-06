@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block main %}
+    <main>
+      <!-- класс py-5 создает отступы сверху и снизу блока -->
+      <div class="container py-5">
+          {% for post in posts %}
+            <ul>
+                <li>
+                    <h5>Автор: {{ post.author.get_full_name }}</h5>
+                </li>
+                <li>
+                    <h5>Дата публикации: {{ post.pub_date }}</h5>
+                </li>
+                <li>
+                    <h5>Группа: {{ post.group }}</h5>
+                </li>
+            </ul>
+          <p>{{ post.text|truncatewords:10 }}</p>
+          <p style="text-align: right;"><a href="{% url 'posts:post' post_id=post.pk %}">Смотреть весь пост</a></p>
+          {% if not forloop.last %}
+          <hr>
+          {% endif %}
+          {% endfor %}
+      </div>
+    </main>
+{% endblock %}
